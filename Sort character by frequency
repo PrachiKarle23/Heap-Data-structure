@@ -1,0 +1,28 @@
+class Solution {
+public:
+    string frequencySort(string s) {
+        map<char,int>mp;
+        for(int i=0;i<s.length();i++){
+            mp[s[i]]++;
+        }
+
+        priority_queue<pair<int,char>>p;
+        for(auto i:mp){
+            pair<int,char>p1=make_pair(i.second,i.first);
+            p.push(p1);
+        }
+
+        string ans="";
+        while(!p.empty())
+        {
+            pair<int,char>p1=p.top();
+            int cnt=0;
+            while(cnt!=p1.first){
+                ans+=p1.second;
+                cnt++;
+            }
+            p.pop();
+        }
+        return ans;
+    }
+};
