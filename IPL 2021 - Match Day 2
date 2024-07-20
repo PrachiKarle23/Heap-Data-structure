@@ -1,21 +1,20 @@
 class Solution {
   public:
-    void solve(vector<int>arr,int i,int n,int k,int s,vector<int>& ans){
-        priority_queue<int>q;
-        while(s!=k && i<n){
-            q.push(arr[i]);
+    int solve(int i,int k,vector<int>arr,priority_queue<int>p,int n){
+        for(int j=0;j<k;j++){
+            p.push(arr[i]);
             i++;
-            s++;
         }
-        if(q.size()==k){
-            ans.push_back(q.top());
-        }
+        return p.top();
     }
     vector<int> max_of_subarrays(vector<int> arr, int n, int k) {
-        vector<int>ans;
-        for(int i=0;i<n;i++){
-            solve(arr,i,n,k,0,ans);
-        }
-        return ans;
+         vector<int>ans;
+         priority_queue<int>p;
+         
+         for(int i=0;i<=n-k;i++){
+            int a= solve(i,k,arr,p,n);
+            ans.push_back(a);
+         }
+         return ans;
     }
 };
