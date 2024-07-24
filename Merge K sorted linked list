@@ -1,0 +1,26 @@
+class Solution{
+  public:
+    //Function to merge K sorted linked list.
+    Node * mergeKLists(Node *arr[], int K)
+    {
+        priority_queue<int,vector<int>,greater<int>>ans;
+        for(int i=0;i<K;i++)
+        {
+            Node* temp=*(arr+i);
+            while(temp!=NULL)
+            {
+                ans.push(temp->data);
+                temp=temp->next;
+            }
+        }
+        
+        Node* newnode=new Node(-1);
+        Node* temp=newnode;
+        while(!ans.empty()){
+            temp->next=new Node(ans.top());
+            ans.pop();
+            temp=temp->next;
+        }
+        return newnode->next;
+    }
+};
