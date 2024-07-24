@@ -1,0 +1,57 @@
+class Solution {
+public:
+    bool isCheck(string& ans) {
+        for (int i = 1; i < ans.size(); i++) {
+            if (ans[i] == ans[i - 1]) {
+                return false;
+            }
+        }
+        return true;
+    }
+    string reorganizeString(string s) {
+        string ans = "";
+        int n = s.length();
+        if(n==1){
+            return s;
+        }
+        priority_queue<pair<int, char>> pq;
+
+        unordered_map<char, int> mp;
+        for (int i = 0; i < n; i++) {
+            mp[s[i]]++;
+        }
+        if(mp.size()==1){
+            return "";
+        }
+
+        for (auto i : mp) {
+            pair<int, char> p = make_pair(i.second, i.first);
+            pq.push(p);
+        }
+
+        while (pq.top().first > 0) {
+            pair<int, char> p = pq.top();
+            pq.pop();
+            if (p.first > 0) {
+                ans += p.second;
+                p.first = p.first - 1;
+            }
+
+            pair<int, char> p1 = pq.top();
+            pq.pop();
+
+            if (p1.first > 0) {
+                ans += p1.second;
+                p1.first = p1.first - 1;
+            }
+
+            pq.push(p);
+            pq.push(p1);
+        }
+
+        if (isCheck(ans)) {
+            return ans;
+        }
+        return "";
+    }
+};
