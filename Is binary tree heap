@@ -1,0 +1,31 @@
+class Solution {
+  public:
+    bool isHeap(struct Node* tree) {
+        queue<struct Node*>q;
+        q.push(tree);
+        bool ans=false;
+        while(!q.empty()){
+            struct Node* temp=q.front();
+            q.pop();
+            if(temp->left!=NULL){
+                if(ans || temp->left->data>temp->data){
+                    return false;
+                }
+                q.push(temp->left);
+            }
+            else{
+                ans=true;
+            }
+            if(temp->right!=NULL){
+                if(ans || temp->right->data>temp->data){
+                    return false;
+                }
+                q.push(temp->right);
+            }
+            else{
+                ans=true;
+            }
+        }
+        return true;
+    }
+};
