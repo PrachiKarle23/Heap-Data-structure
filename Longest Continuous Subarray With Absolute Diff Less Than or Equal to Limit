@@ -52,3 +52,26 @@ public:
         return ans;
     }
 };
+
+class Solution {
+public:
+    int longestSubarray(vector<int>& nums, int limit) {
+        int ans = 0;
+        int i = 0, j = 0;
+        deque<int> q;
+        for (; j < nums.size(); j++) {
+            q.push_back(nums[j]);
+            int maxi = *max_element(q.begin(), q.end());
+            int mini = *min_element(q.begin(), q.end());
+            int a = maxi - mini;
+            if (a > limit) {
+                q.pop_front();
+                i++;
+            }
+            if (a <= limit) {
+                ans = max(ans, j - i + 1);
+            }
+        }
+        return ans;
+    }
+};
