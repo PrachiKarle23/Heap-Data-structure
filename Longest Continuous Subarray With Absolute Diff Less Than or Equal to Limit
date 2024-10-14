@@ -27,3 +27,28 @@ public:
         return maxi;
     }
 };
+
+class Solution {
+public:
+    int longestSubarray(vector<int>& nums, int limit) {
+        int ans = 0;
+        for (int i = 0; i < nums.size(); i++) {
+            int maxi = INT_MIN, mini = INT_MAX;
+            for (int j = i; j < nums.size(); j++) {
+                if (nums[j] > maxi) {
+                    maxi = nums[j];
+                }
+                if (nums[j] < mini) {
+                    mini = nums[j];
+                }
+                int b=maxi-mini;
+                if (b <= limit) {
+                    if (ans < j-i+1) {
+                        ans = j-i+1;
+                    }
+                }
+            }
+        }
+        return ans;
+    }
+};
